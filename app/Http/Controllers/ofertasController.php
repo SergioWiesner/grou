@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Modelos\productos;
 use Illuminate\Http\Request;
 use App\Modelos\ofertas;
 
@@ -32,7 +33,9 @@ class ofertasController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('sistema.oferta.crear')
+            ->with('productos', productos::listarProductos());
     }
 
     /**
@@ -43,7 +46,8 @@ class ofertasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $this->manager->crearOferta($request->all());
+        return redirect()->route('ofertas.show', $id);
     }
 
     /**
@@ -54,7 +58,9 @@ class ofertasController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('sistema.oferta.ver')
+            ->with('productos', productos::listarProductos())
+            ->with('oferta', $this->manager->buscarOferta($id)[0]);
     }
 
     /**
@@ -77,7 +83,8 @@ class ofertasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->manager->actualizarOferta($id, $request->all());
+        return redirect()->back();
     }
 
     /**

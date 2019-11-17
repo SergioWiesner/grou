@@ -15,7 +15,7 @@ class productos
         return $data->id;
     }
 
-    public function listarProductos()
+    public static  function listarProductos()
     {
         return Herramientas::collectionToArray(productosBD::all());
     }

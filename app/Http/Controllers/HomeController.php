@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Modelos\ofertas;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,9 +12,13 @@ class HomeController extends Controller
      *
      * @return void
      */
+
+    protected $ofertas;
+
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->ofertas = new ofertas();
+//        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +28,25 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('welcome')
+            ->with('ofertas', $this->ofertas->listarOfertas());
+    }
 
+    public function verOferta($id)
+    {
+        return view('verOfertas')
+            ->with('ofertas', $this->ofertas->buscarOfertaDetallada($id));
+    }
+
+    public function generarPago($id)
+    {
+        return view('generarPAgos')
+            ->with('ofertas', $this->ofertas->buscarOfertaDetallada($id));
+    }
+
+    public function aplicarOferta(Request $request)
+    {
+        $this->ofertas->AgregarHistorial($request->all());
+        return true;
     }
 }

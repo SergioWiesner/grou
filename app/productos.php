@@ -10,4 +10,9 @@ class productos extends Model
     use SoftDeletes;
     protected $table = "productos";
     protected $fillable = ['id', 'nombre', 'descripcion'];
+
+
+    public function ofertas(){
+        return $this->hasMany('App\ofertas', 'idproducto', 'id');
+    }
 }

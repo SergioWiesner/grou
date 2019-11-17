@@ -9,5 +9,13 @@ class ofertas extends Model
 {
     use SoftDeletes;
     protected $table = "ofertas";
-    protected $fillable = ['id', 'idvendedor', 'cantidad', 'idproducto'];
+    protected $fillable = ['idvendedor', 'cantidad', 'estado', 'idproducto', 'valor'];
+
+    public function productos(){
+        return $this->belongsTo('App\productos', 'idproducto', 'id');
+    }
+
+    public function ofertante(){
+        return $this->belongsTo('App\User', 'idvendedor', 'id');
+    }
 }
