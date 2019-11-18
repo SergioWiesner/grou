@@ -38,7 +38,13 @@ class User extends Authenticatable
     ];
 
 
-    public function ofertas(){
+    public function ofertas()
+    {
         return $this->hasMany('App\ofertas', 'idvendedor', 'id');
+    }
+
+    public function historialCompras()
+    {
+        return $this->hasMany('App\historialCompras', 'idusuario', 'id');
     }
 }

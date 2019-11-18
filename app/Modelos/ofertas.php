@@ -65,7 +65,6 @@ class ofertas
 
     public function actualizarOferta($id, $oferta)
     {
-
         $id = ofertaDB::where('id', $id)->update([
             'cantidad' => $oferta['cantidad'],
             'idproducto' => $oferta['idproducto'],
@@ -76,19 +75,28 @@ class ofertas
         return true;
     }
 
+    public function desactivarOferta($id)
+    {
+        $id = ofertaDB::where('id', $id)->update([
+            'estado' => 0
+        ]);
+        return true;
+    }
+
     public function eliminarOferta($id)
     {
         return ofertaDB::where('id', $id)->delete();
     }
 
-    public function AgregarHistorial($data)
+    public function AgregarHistorial($idoferta, $idusuario)
     {
         $fecha = Carbon::now();
-        historialCompras::create([
-            'idusuario' => $data['idusuario'],
-            'idofertas' => $data['idofertas'],
+        $data = historialCompras::create([
+            'idusuario' => $idusuario,
+            'idofertas' => $idoferta,
             'fecha' => $fecha->toDateString()
         ]);
-        return true;
+        self::desactivarOferta($idoferta);
+        return $data->id;
     }
 }

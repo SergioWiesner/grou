@@ -9,13 +9,20 @@ class ofertas extends Model
 {
     use SoftDeletes;
     protected $table = "ofertas";
-    protected $fillable = ['idvendedor', 'cantidad', 'estado', 'idproducto', 'valor'];
+    protected $fillable = ['id', 'idvendedor', 'cantidad', 'estado', 'idproducto', 'valor'];
 
-    public function productos(){
+    public function productos()
+    {
         return $this->belongsTo('App\productos', 'idproducto', 'id');
     }
 
-    public function ofertante(){
+    public function ofertante()
+    {
         return $this->belongsTo('App\User', 'idvendedor', 'id');
+    }
+
+    public function historialCompra()
+    {
+        return $this->hasMany('App\historialCompras', 'idproducto', 'id');
     }
 }

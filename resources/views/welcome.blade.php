@@ -24,7 +24,7 @@
                                 <td>{{$ofertas[$a]['cantidad']}}</td>
                                 <td>${{number_format($ofertas[$a]['valor'])}}</td>
                                 <td>{{$ofertas[$a]['created_at']}}</td>
-                                <td><a href="{{route('verOferta', $ofertas[$a]['productos']['id'])}}">Ver</a></td>
+                                <td><a href="{{route('verOferta', $ofertas[$a]['id'])}}">Ver</a></td>
                             </tr>
                         @endfor
                         </tbody>

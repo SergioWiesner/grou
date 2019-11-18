@@ -9,6 +9,6 @@
         <p><strong>Producto: </strong>{{$ofertas['productos']['nombre']}}</p>
         <p><strong>Descripción: </strong>{{$ofertas['productos']['descripcion']}}</p>
         <p><strong>Cantidad: </strong>{{$ofertas['cantidad']}}</p>
-        <a href="{{route('')}}" class="btn btn-primary btn-block">Aplicar a la oferta</a>
+        <a href="{{route('generarPago', $ofertas['id'])}}" class="btn btn-primary btn-block">Aplicar a la oferta</a>
     </div>
 @endsection

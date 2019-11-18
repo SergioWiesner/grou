@@ -40,13 +40,14 @@ class HomeController extends Controller
 
     public function generarPago($id)
     {
-        return view('generarPAgos')
+        return view('generarPagos')
             ->with('ofertas', $this->ofertas->buscarOfertaDetallada($id));
     }
 
-    public function aplicarOferta(Request $request)
+    public function aplicarOferta($idoferta, $idusuario)
     {
-        $this->ofertas->AgregarHistorial($request->all());
-        return true;
+        $id = $this->ofertas->AgregarHistorial($idoferta, $idusuario);
+        return view('generarPagos')
+            ->with('ofertas', $this->ofertas->buscarOfertaDetallada($idoferta));
     }
 }
